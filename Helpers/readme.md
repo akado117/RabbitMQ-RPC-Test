@@ -1,0 +1,1 @@
+This implementation will assume one queue per connector. Per this best practice article https://www.cloudamqp.com/blog/2017-12-29-part1-rabbitmq-best-practice.html

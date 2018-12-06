@@ -1,0 +1,15 @@
+{
+  "name": "clientqueue",
+  "version": "1.0.0",
+  "description": "Server that communicates with client devices",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "amqplib": "^0.5.3",
+    "express": "^4.16.4"
+  }
+}

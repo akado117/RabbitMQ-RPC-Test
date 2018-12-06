@@ -1,0 +1,12 @@
+{
+  "name": "messagequeue",
+  "version": "1.0.0",
+  "description": "Parent for sub server apps for message queue",
+  "main": "index.js",
+  "scripts": {
+    "test": "asdsa",
+    "postinstall": "cd ./ClientQueue && npm install"
+  },
+  "author": "",
+  "license": "ISC"
+}
