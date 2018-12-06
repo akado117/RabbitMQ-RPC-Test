@@ -6,7 +6,8 @@
   "scripts": {
     "start:ClientServ": "node ./ClientServices",
     "start:ClientServ-debug": "node --inspect ./ClientServices",
-    "postinstall": "cd ./ClientServices && npm install"
+    "start:FakeServ": "node ./FakeApiServer",
+    "postinstall": "cd ./ClientServices && npm install && cd ../FakeApiServer && npm install && cd ../WorkerServer && npm install"
   },
   "author": "",
   "license": "ISC",

@@ -20,5 +20,3 @@ const mQ = new MQConnector(host, userName, password, vHost, (mQ) => {
 driverInfoManager(app,mQ);
 
 app.listen(config.port, () => console.log(`ClientServices listening on port ${config.port}!`))
-
-global.mq = mQ;

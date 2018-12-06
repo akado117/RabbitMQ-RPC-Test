@@ -1,3 +1,5 @@
+const parentConfig = require('./config');
+
 const configData = {
   port: process.env.PORT = 3001,
   amqpServerInfo: {
@@ -7,7 +9,7 @@ const configData = {
     vHost: process.env.MQ_VHOST || '/skwcocfg',
   },
   queueNames: {
-    driverInfo: process.env.MQ_DRIVER_INFO || 'driver-info-0'
+    driverInfo: process.env.MQ_DRIVER_INFO || parentConfig.driverInfo
   }
 }
 

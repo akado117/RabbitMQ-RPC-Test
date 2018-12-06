@@ -1,0 +1,15 @@
+{
+  "name": "fakeapiserver",
+  "version": "1.0.0",
+  "description": "we can call services here and emulate long response times",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4"
+  }
+}
