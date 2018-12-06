@@ -2,19 +2,20 @@ import React, { Component } from 'react';
 import './App.css';
 
 //rush because its late and just for poc
-function postData(url = ``, data = {}) {
-    return fetch(url, {
-        method: "POST",
-        mode: "cors", 
-        cache: "no-cache", 
-        credentials: "same-origin",
-        headers: {
-            "Content-Type": "application/json; charset=utf-8",
-        },
-        redirect: "follow",
-        referrer: "no-referrer",
-        body: JSON.stringify(data),
-    })
+function service(url = ``, data, type) {
+    const fetchOptions = {
+      method: type,
+      mode: "cors", 
+      cache: "no-cache", 
+      credentials: "same-origin",
+      headers: {
+          "Content-Type": "application/json; charset=utf-8",
+      },
+      redirect: "follow",
+      referrer: "no-referrer",
+    }
+    if (data) fetchOptions.body = JSON.stringify(data);
+    return fetch(url, fetchOptions)
     .then(response => response.json());
 }
 
@@ -27,19 +28,42 @@ class App extends Component {
     this.state = {
       inputValue: '',
       userData: {},
-      heartBeatActive: false,
+      heartBeatActive: '',
+      heartBeatStart: 0,
     }
   }
   initiateGetData = () => {
-    postData(`${clientHost}/user`, { name: this.state.inputValue })
-    .then(function(data) {
-      console.log(data);
+    service(`${clientHost}/user`, { name: this.state.inputValue }, 'POST')
+    .then((data) => {
+      if (data.data) {
+        //heartbeat for this user
+        this.setState({
+          heartBeatActive: data.data.uuid,
+          heartBeatStart: parseInt(Date.now()/1000)
+        })
+        this.triggerHeartBeat();
+      }
     });
   }
   onInputChange = (e) => {
     this.setState({
       inputValue: e.target.value
     })
+  }
+  heartBeat = () => {
+    if (this.state.heartBeatActive && (parseInt(Date.now()/1000) - this.state.heartBeatStart < 30 )) {
+      service(`${clientHost}/user?uuid=${this.state.heartBeatActive}`, undefined, 'GET').then(data => {
+        
+        console.log(data)
+      })
+    } else {
+      this.setState({
+        heartBeatActive: ''
+      })
+    }
+  }
+  triggerHeartBeat = () => {
+    setInterval(this.heartBeat, 1000)
   }
   renderUserData = () => {
     const userElements = []
@@ -56,17 +80,6 @@ class App extends Component {
     }
 
     return userElements;
-  }
-  heartBeat = () => {
-    if (this.state.heartBeatActive) {
-      fetch(`${clientHost}/user`).then(res => {
-        const data = res.json()
-        console.log(data)
-      })
-    }
-  }
-  triggerHeartBeat = () => {
-    
   }
   render() {
     return (
