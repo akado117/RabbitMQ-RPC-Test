@@ -7,6 +7,7 @@
     "start:clientServ": "node ./ClientServices",
     "start:clientServ-debug": "node --inspect ./ClientServices",
     "start:fakeServ": "node ./FakeApiServer",
+    "start:frontendServ": "cd ./ui-demo && npm start",
     "start:workServ": "node ./WorkerServer",
     "start:workServ-debug": "node --inspect ./WorkerServer",
     "postinstall": "cd ./ClientServices && npm install && cd ../FakeApiServer && npm install && cd ../WorkerServer && npm install && cd ../ui-demo && npm install"
@@ -14,7 +15,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "amqplib": "^0.5.3",
-    "ttab": "^0.6.1"
+    "amqplib": "^0.5.3"
   }
 }
