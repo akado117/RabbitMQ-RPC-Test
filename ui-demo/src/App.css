@@ -30,3 +30,32 @@
     transform: rotate(360deg);
   }
 }
+
+table {
+	width:100%;
+	border:1px solid #EEEEEE;
+}
+
+thead {
+	display:flex;
+	width:100%;
+	background:#000;
+	padding:(12 * 1.5) 0;
+}
+
+tr {
+	display:flex;
+	width:100%;
+	padding:(12 * 1.5) 0;
+	
+	
+}
+
+tr:nth-of-type(odd) {
+  background: #EEEEEE;
+}
+
+td {
+	flex: 1 1 20%;
+	text-align:center;
+}

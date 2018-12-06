@@ -9,7 +9,8 @@ class DataWarehouse {
     this.users[user.uuid] = oldUser
   }
 
-  getUsers() {
+  getUsers(userId) {
+    if (userId) return { [userId]: this.users[userId] }
     return this.users;
   }
 }

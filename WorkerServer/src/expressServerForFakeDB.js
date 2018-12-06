@@ -10,8 +10,9 @@ app.use(bodyParser.urlencoded({
 }));
 
 app.get('/users', (req, res) => {
-  users = dataWarehouse.getUsers();
-  console.log(users);
+  let uuid;
+  if (req.query && req.query.uuid) uuid = req.query.uuid
+  users = dataWarehouse.getUsers(uuid);
   res.send(JSON.stringify(users))
 })
 

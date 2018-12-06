@@ -21,6 +21,13 @@ function service(url = ``, data, type) {
 
 const clientHost = 'http://localhost:3001';
 
+const tableheadNames = { 
+  name: 'Name', 
+  ssn: 'SSN', 
+  numTickets: 'Number of Tickets', 
+  violations: 'Violations', 
+  numFelonies: 'Number Of Felonies' }
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -28,7 +35,7 @@ class App extends Component {
     this.state = {
       inputValue: '',
       userData: {},
-      heartBeatActive: '',
+      heartBeatActive: '',//uuid is stored here to know if we should be pinging
       heartBeatStart: 0,
     }
   }
@@ -41,7 +48,7 @@ class App extends Component {
           heartBeatActive: data.data.uuid,
           heartBeatStart: parseInt(Date.now()/1000)
         })
-        //this.triggerHeartBeat();
+        this.triggerHeartBeat();
       }
     });
   }
@@ -52,9 +59,16 @@ class App extends Component {
   }
   heartBeat = () => {
     if (this.state.heartBeatActive && (parseInt(Date.now()/1000) - this.state.heartBeatStart < 30 )) {
-      service(`${clientHost}/user?uuid=${this.state.heartBeatActive}`, undefined, 'GET').then(data => {
+      const uuid = this.state.heartBeatActive
+      service(`${clientHost}/user?uuid=${uuid}`, undefined, 'GET').then(data => {
+        const updatedData = data.data[uuid];
+        const userDataClone = { ...this.state.userData }
+        userDataClone[uuid] = updatedData//because service object will always be most up to date we can just blindly assign
         
-        console.log(data)
+        const stateToUpdate = { userData: userDataClone }
+        if (data.isFinished) stateToUpdate.heartBeatActive = ''
+
+        this.setState(stateToUpdate);
       })
     } else {
       this.setState({
@@ -63,20 +77,27 @@ class App extends Component {
     }
   }
   triggerHeartBeat = () => {
-    setInterval(this.heartBeat, 1000)
+    setInterval(this.heartBeat, 2000)
   }
-  renderUserData = () => {
-    const userElements = []
-    for (const [uuid, user] of Object.entries(this.state.userData)) {
-      const { name, ssn, numTickets, violations, numFelonies } = user;
-      userElements.push(
-      <tr key={uuid} >
+  renderRow(user, key) {
+    const { name, ssn, numTickets, violations, numFelonies } = user;
+    return (
+      <tr key={key} >
         <td>{name}</td>
         <td>{ssn}</td>
         <td>{numTickets}</td>
         <td>{violations}</td>
         <td>{numFelonies}</td>
-      </tr>)
+      </tr>
+      )
+  }
+  renderUserData = () => {
+    const userElements = []
+    for (const [uuid, user] of Object.entries(this.state.userData)) {
+      
+      userElements.push(
+        this.renderRow(user, uuid)
+      )
     }
 
     return userElements;
@@ -91,7 +112,12 @@ class App extends Component {
         </div>
         <div>
           <table>
-            {this.renderUserData()}
+            <thead>
+              {this.renderRow(tableheadNames)}
+            </thead>
+            <tbody>
+              {this.renderUserData()}
+            </tbody>
           </table>
         </div>
       </div>

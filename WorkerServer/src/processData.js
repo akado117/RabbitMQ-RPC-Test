@@ -26,7 +26,7 @@ async function processSSN(ssnData) {
     ssn
   })
 
-  // dataWarehouse.saveUser(response.data)
+  dataWarehouse.saveUser(response.data)
 
   return response.data; // { uuid, numTickets, volations }
 }
@@ -39,7 +39,7 @@ async function processDrivingRecord(drivingRecordData) {
     violations
   })
 
-  // dataWarehouse.saveUser(response.data)
+  dataWarehouse.saveUser(response.data)
 
   return response.data; // { uuid, numFelonies }
 }
