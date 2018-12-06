@@ -1,15 +1,23 @@
 const axios = require('axios');
 const { dataServerHost } = require('../config');
 const { fakeUrls } = require('../../FakeApiServer/config');
+const dataWarehouse = require('./dataWarehouse');
 
 //logging is just for reference. This is POC code/not production
-async function processName(name) {
+async function processName(driverData) {
+  const { name, uuid } = driverData;
   console.log('Processing name data for: ', name)
-  const uuid = Math.floor(Math.random() * 100000000);
+
+  dataWarehouse.saveUser({
+    uuid,
+    name
+  })
   const response = await axios.post(`${dataServerHost}${fakeUrls.ssn}`, {
     uuid,
     name
   })
+
+  dataWarehouse.saveUser(response.data)
 
   console.log(response.data);
 
@@ -24,6 +32,8 @@ async function processSSN(ssnData) {
     ssn
   })
 
+  dataWarehouse.saveUser(response.data)
+
   return response.data; // { uuid, numTickets, volations }
 }
 
@@ -34,6 +44,8 @@ async function processDrivingRecord(drivingRecordData) {
     uuid,
     violations
   })
+
+  dataWarehouse.saveUser(response.data)
 
   return response.data; // { uuid, numFelonies }
 }

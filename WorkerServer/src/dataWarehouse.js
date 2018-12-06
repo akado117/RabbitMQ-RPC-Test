@@ -4,7 +4,7 @@ class DataWarehouse {
   }
 
   saveUser(user) {
-    oldUser =  this.users[user.uuid] || {}
+    const oldUser =  this.users[user.uuid] || {}
     Object.assign(oldUser, user);
     this.users[user.uuid] = oldUser
   }

@@ -7,10 +7,9 @@ function dataProcessingManager(mQ) {
   const driverRecordQueue = mQ.getQueue(queueNames.driverRecordInfo);
 
   async function consumeDriverQueue(msg) {
-    const name = msg.content.toString()
-    const ssnData = await processData.processName(name);
+    const driverData = JSON.parse(msg.content.toString())
+    const ssnData = await processData.processName(driverData);
     const { uuid, ssn } = ssnData;
-    //send to DB
 
     ssnQueue.sendToQueue(JSON.stringify({
       uuid,
@@ -23,7 +22,6 @@ function dataProcessingManager(mQ) {
     const driverRecordData = await processData.processSSN(queueData);
 
     const { uuid, violations } = driverRecordData;
-    //send to DB
 
     driverRecordQueue.sendToQueue(
       JSON.stringify({
@@ -39,7 +37,6 @@ function dataProcessingManager(mQ) {
 
     const { uuid, numFelonies } = driverRecordData;
 
-    //send to DB
     console.log(driverRecordData);
   }
 
