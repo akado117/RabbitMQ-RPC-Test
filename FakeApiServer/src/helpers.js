@@ -2,6 +2,7 @@ function fakeService(res, returnData, delay) {
   //simulate calling external services
   this.setTimeout(() => {
     res.setHeader('Content-Type', 'application/json');
+    console.log('sending data:', returnData);
     res.send(JSON.stringify(returnData));
   }, Math.random() * delay);
 }

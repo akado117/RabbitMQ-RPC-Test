@@ -4,9 +4,11 @@
   "description": "Parent for sub server apps for message queue",
   "main": "index.js",
   "scripts": {
-    "start:ClientServ": "node ./ClientServices",
-    "start:ClientServ-debug": "node --inspect ./ClientServices",
-    "start:FakeServ": "node ./FakeApiServer",
+    "start:clientServ": "node ./ClientServices",
+    "start:clientServ-debug": "node --inspect ./ClientServices",
+    "start:fakeServ": "node ./FakeApiServer",
+    "start:workServ": "node ./WorkerServer",
+    "start:workServ-debug": "node --inspect ./WorkerServer",
     "postinstall": "cd ./ClientServices && npm install && cd ../FakeApiServer && npm install && cd ../WorkerServer && npm install"
   },
   "author": "",

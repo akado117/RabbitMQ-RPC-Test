@@ -1,7 +1,7 @@
 {
   "name": "workerserver",
   "version": "1.0.0",
-  "description": "Server that pulls data from queues and puts into database",
+  "description": "Server that pulls data from queues and puts into database, also can add data to queues",
   "main": "index.js",
   "scripts": {
     "test": "test"
@@ -9,7 +9,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "body-parser": "^1.18.3",
-    "express": "^4.16.4"
+    "axios": "^0.18.0"
   }
 }

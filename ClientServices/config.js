@@ -1,15 +1,16 @@
-const parentConfig = require('./config');
+const parentConfig = require('../config');
+const { amqpServerInfo, queueNames } = parentConfig
 
 const configData = {
   port: process.env.PORT = 3001,
   amqpServerInfo: {
-    userName: process.env.MQ_USER || 'skwcocfg',
-    host: process.env.MQ_HOST || 'wombat.rmq.cloudamqp.com',
-    password: process.env.MQ_PASS || 'W1bG-hEHf93sYtBLhTFsNCtZnb5o3pK0',
-    vHost: process.env.MQ_VHOST || '/skwcocfg',
+    userName: process.env.MQ_USER || amqpServerInfo.userName,
+    host: process.env.MQ_HOST || amqpServerInfo.host,
+    password: process.env.MQ_PASS || amqpServerInfo.password,
+    vHost: process.env.MQ_VHOST || amqpServerInfo.vHost,
   },
   queueNames: {
-    driverInfo: process.env.MQ_DRIVER_INFO || parentConfig.driverInfo
+    driverInfo: process.env.MQ_DRIVER_INFO || queueNames.driverInfo
   }
 }
 

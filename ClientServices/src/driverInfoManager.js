@@ -10,7 +10,6 @@ function  driverInfoManager(app, MQ) {
     await driverQueue.sendToQueue(name, {
       persistent: false,
       expiration: 30000//ms
-      //replyTo: 'eventually we will use this'
     });
     
     res.send('generic sent message');
