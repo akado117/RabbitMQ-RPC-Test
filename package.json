@@ -9,11 +9,12 @@
     "start:fakeServ": "node ./FakeApiServer",
     "start:workServ": "node ./WorkerServer",
     "start:workServ-debug": "node --inspect ./WorkerServer",
-    "postinstall": "cd ./ClientServices && npm install && cd ../FakeApiServer && npm install && cd ../WorkerServer && npm install"
+    "postinstall": "cd ./ClientServices && npm install && cd ../FakeApiServer && npm install && cd ../WorkerServer && npm install && cd ../ui-demo && npm install"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "amqplib": "^0.5.3"
+    "amqplib": "^0.5.3",
+    "ttab": "^0.6.1"
   }
 }
