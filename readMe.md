@@ -1,4 +1,4 @@
-###Brief Summary of project intent
+### Brief Summary of project intent
 
 A scaleable solution to handle stiching together several different services with highly eratic response times.
 
