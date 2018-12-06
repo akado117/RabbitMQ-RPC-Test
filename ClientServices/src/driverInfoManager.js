@@ -1,11 +1,14 @@
+const axios = require('axios');
 const config = require('../config');
-
 
 function  driverInfoManager(app, MQ) {
   app.get('/user', async (req, res) => {
+    //below is for non db data so not using config
+    const response = await axios.get('http://localhost:3010/users');
     res.send(JSON.stringify({
       uuid: req.query.uuid,
       message: `successfully triggered get data for`,
+      response
     }));
   })
   app.post('/user', async (req, res) => {

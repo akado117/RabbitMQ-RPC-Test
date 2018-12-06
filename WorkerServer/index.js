@@ -1,6 +1,7 @@
 const MQConnector = require('../Helpers/MQConnector');
 const config = require('../config')
 const dataProcessingManager = require('./src/dataProcessingManager')
+//const fakeDatabaseService = require('./src/expressServerForFakeDB');
 
 const { host, userName, password, vHost } = config.amqpServerInfo;
 

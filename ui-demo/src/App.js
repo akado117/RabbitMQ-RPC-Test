@@ -41,7 +41,7 @@ class App extends Component {
           heartBeatActive: data.data.uuid,
           heartBeatStart: parseInt(Date.now()/1000)
         })
-        this.triggerHeartBeat();
+        //this.triggerHeartBeat();
       }
     });
   }

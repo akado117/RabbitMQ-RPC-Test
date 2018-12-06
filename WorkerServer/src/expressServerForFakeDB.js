@@ -11,6 +11,7 @@ app.use(bodyParser.urlencoded({
 
 app.get('/users', (req, res) => {
   users = dataWarehouse.getUsers();
+  console.log(users);
   res.send(JSON.stringify(users))
 })
 

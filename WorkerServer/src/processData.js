@@ -5,17 +5,11 @@ const dataWarehouse = require('./dataWarehouse');
 
 //logging is just for reference. This is POC code/not production
 async function processName(driverData) {
-  const { name, uuid } = driverData;
-  console.log('Processing name data for: ', name)
+  console.log('Processing name data for: ', driverData)
 
-  dataWarehouse.saveUser({
-    uuid,
-    name
-  })
-  const response = await axios.post(`${dataServerHost}${fakeUrls.ssn}`, {
-    uuid,
-    name
-  })
+  dataWarehouse.saveUser(driverData)
+
+  const response = await axios.post(`${dataServerHost}${fakeUrls.ssn}`, driverData)
 
   dataWarehouse.saveUser(response.data)
 
@@ -32,7 +26,7 @@ async function processSSN(ssnData) {
     ssn
   })
 
-  dataWarehouse.saveUser(response.data)
+  // dataWarehouse.saveUser(response.data)
 
   return response.data; // { uuid, numTickets, volations }
 }
@@ -45,7 +39,7 @@ async function processDrivingRecord(drivingRecordData) {
     violations
   })
 
-  dataWarehouse.saveUser(response.data)
+  // dataWarehouse.saveUser(response.data)
 
   return response.data; // { uuid, numFelonies }
 }
