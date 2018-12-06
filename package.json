@@ -4,9 +4,13 @@
   "description": "Parent for sub server apps for message queue",
   "main": "index.js",
   "scripts": {
-    "test": "asdsa",
-    "postinstall": "cd ./ClientQueue && npm install"
+    "start:ClientServ": "node ./ClientServices",
+    "start:ClientServ-debug": "node --inspect ./ClientServices",
+    "postinstall": "cd ./ClientServices && npm install"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "amqplib": "^0.5.3"
+  }
 }

@@ -2,23 +2,23 @@ const amqp = require('amqplib');
 const MQQueue = require('./MQQueue');
 
 class MQConnector {
-  constructor(host, name, password, cb = () => {}) {
+  constructor(host, name, password, vHost, cb = () => {}) {
     const self = this;
-    connectorURL = host ? `amqp://${name}:${password}@${host}` : 'amqp://localhost'
+    const connectorURL = host ? `amqp://${name}:${password}@${host}${vHost}` : 'amqp://localhost'
     
-    amqp.connect(connectorURL).then(function(err, conn) {
-      self = conn;
-      cb();
+    amqp.connect(connectorURL).then(function(conn) {
+      self._connector = conn;
+      cb(self);
     }).catch(console.warn);
     self._queues = {};
   }
 
   async createQueue(queueId, assertQueueOptions = {}, optionalQueueName) {
-    
+    let queue;
     try {
-      const channel = await conn.createChannel();
+      const channel = await this._connector.createChannel();
 
-      const queue = new MQQueue(optionalQueueName || queueId, channel);
+      queue = new MQQueue(optionalQueueName || queueId, channel);
       await queue.assertQueue(assertQueueOptions);
     } catch (error) {
       console.warn(error);

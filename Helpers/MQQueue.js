@@ -1,3 +1,5 @@
+//see http://www.squaremobius.net/amqp.node/channel_api.html for options information
+
 class MQQueue {
   constructor(queueName, channel) {
     const self = this;
@@ -11,9 +13,9 @@ class MQQueue {
     this._assertOptions = options;
     try {
       await this._ch.assertQueue(this._queueName, options);
-      self._ok = true;
+      this._ok = true;
     } catch(err) {
-      self._ok = false;
+      this._ok = false;
       console.warn(err)
     }
   }
@@ -57,3 +59,5 @@ class MQQueue {
     return true;
   }
 }
+
+module.exports = MQQueue;
